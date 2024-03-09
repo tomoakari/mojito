@@ -1,0 +1,22 @@
+{
+  "name": "mojito",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomoakari/mojito.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomoakari/mojito/issues"
+  },
+  "homepage": "https://github.com/tomoakari/mojito#readme",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
