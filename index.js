@@ -39,9 +39,6 @@ let bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Sequelize（DBアクセス）
-let db = require('./models/index');
-
 // ハッシュライブラリ
 const crypto = require("crypto");
 
