@@ -53,7 +53,8 @@ const crypto = require("crypto");
  */
 app.get("/", async (request, response) => {
 // app.post("/", async (request, response) => {
-    response.sendFile(__dirname + "room.html");
+    // response.sendFile(__dirname + "room.html");
+    response.sendFile(__dirname + "/public/views/room.html");
 });
 
 
