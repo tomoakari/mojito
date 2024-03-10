@@ -51,7 +51,8 @@ const crypto = require("crypto");
 /**
  * 会議室ページ
  */
-app.post("/", async (request, response) => {
+app.get("/", async (request, response) => {
+// app.post("/", async (request, response) => {
     response.sendFile(__dirname + "room.html");
 });
 
