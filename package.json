@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/tomoakari/mojito#readme",
   "dependencies": {
-    "express": "^4.18.3"
+    "cors": "^2.8.5",
+    "crypt-js": "^1.0.4",
+    "express": "^4.18.3",
+    "http": "^0.0.1-security",
+    "node-appwrite": "^12.0.0",
+    "socket.io": "^4.7.4"
   }
 }

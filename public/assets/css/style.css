@@ -1,0 +1,547 @@
+/************* ユーティリティ ***************/
+.hidden {
+    display: none;
+  }
+  
+  /************* 全体構造 ***************/
+  body {
+    margin: 0px;
+    font-family: "メイリオ", "Meiryo", "ＭＳ ゴシック",
+      "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", sans-serif;
+  }
+  .pageWrapper {
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .blackBG {
+    background: #203744;
+  }
+  .pinkBG {
+    background: #f2a0a1;
+  }
+  .blueBG {
+    background: #3e62ad;
+  }
+  .purpleBG {
+    background: #460e44;
+  }
+  .charcoalBG {
+    background: #2a2a2a;
+  }
+  .bg1 {
+    background: #000000;
+  }
+  .bg2 {
+    background-image: url(https://aice.cloud/img/conference1.jpg);
+    background-size: cover;
+  }
+  .bg3 {
+    background-image: url(https://aice.cloud/img/conference2.jpg);
+    background-size: cover;
+  }
+  .bg4 {
+    background-image: url(https://aice.cloud/img/conference3.jpg);
+    background-size: cover;
+  }
+  .bg5 {
+    background-image: url(https://aice.cloud/img/conference4.jpg);
+    background-size: cover;
+  }
+  .bg6 {
+    background-image: url(https://aice.cloud/img/conference5.jpg);
+    background-size: cover;
+  }
+  .bg7 {
+    background-image: url(https://aice.cloud/img/conference6.jpg);
+    background-size: cover;
+  }
+  .bg8 {
+    background-image: url(https://aice.cloud/img/conference7.jpg);
+    background-size: cover;
+  }
+  .bg9 {
+    background-image: url(https://aice.cloud/img/conference8.jpg);
+    background-size: cover;
+  }
+  .plumBG {
+    background: #a57172;
+  }
+  .wisteriaBG {
+    background: #6b8cab;
+  }
+  
+  .blind4black {
+    background: rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  .leftArea {
+    width: 100%;
+  }
+  
+  @media all and (min-width: 480px) {
+    .rightArea {
+      width: 400px;
+      /* background: rgba(255, 255, 255, 0.9); 白系の場合 */
+      background: rgba(0, 0, 0, 0.9); /* 黒系の場合 */
+      padding: 10px;
+      height: calc(100vh - 20px);
+      color: #ffffff; /* 黒系の場合 */
+    }
+  }
+  @media all and (max-width: 480px) {
+    .rightArea {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      z-index: 100;
+      width: 100vw;
+      /* background: rgba(255, 255, 255, 0.9); 白系の場合 */
+      background: rgba(0, 0, 0, 0.7); /* 黒系の場合 */
+      height: calc(100vh - 70px);
+      color: #ffffff; /* 黒系の場合 */
+    }
+  }
+  
+  .videoArea {
+    background: rgba(0, 0, 0, 0.5);
+    height: calc(100vh - 85px);
+    padding-top: 15px;
+    overflow-y: scroll;
+  }
+  .controlArea {
+    background: rgba(0, 0, 0, 0.9);
+    height: 56px;
+    padding: 7px 0px;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+  }
+  .chatArea {
+  }
+  .controlArea span.fab {
+    margin: 0px 10px;
+  }
+  
+  /************* ビデオエリア ***************/
+  
+  #container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .videowrapper {
+    margin-top: 0px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    margin-bottom: 10px !important;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  @media all and (max-width: 480px) {
+  }
+  .membername {
+    position: relative;
+    bottom: 50px;
+    color: white;
+    margin-bottom: -2.5rem;
+    text-shadow: black 1px 1px 10px, black -1px 1px 10px, black 1px -1px 10px,
+      black -1px -1px 10px;
+  }
+  
+  @media all and (min-width: 480px) {
+    .vc1 {
+      width: 47%;
+    }
+    .vc2 {
+      width: 47%;
+    }
+    .vc3 {
+      width: 31%;
+    }
+    .vc4 {
+      width: 47%;
+    }
+    .vc5 {
+      width: 31%;
+    }
+    .vc6 {
+      width: 31%;
+    }
+    .vc7 {
+      width: 23%;
+    }
+  }
+  @media all and (max-width: 480px) {
+    .vc1 {
+      width: 90%;
+    }
+    .vc2 {
+      width: 90%;
+    }
+    .vc3 {
+      width: 47%;
+    }
+    .vc4 {
+      width: 47%;
+    }
+    .vc5 {
+      width: 47%;
+    }
+    .vc6 {
+      width: 47%;
+    }
+    .vc7 {
+      width: 31%;
+    }
+  }
+  
+  .vcAudience {
+    display: none;
+  }
+  .vcPresen {
+    width: calc(100% - 30px);
+    display: block;
+  }
+  .vcPresen video.membersvideo {
+    max-height: 100%;
+    max-width: 100%;
+  }
+  .audienceContainer {
+    position: absolute;
+    bottom: 70px;
+    height: 0px;
+    width: calc(100% - 20px);
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  /************* コントロールエリア ***************/
+  
+  .fab {
+    /*円の部分*/
+    /*display: block;*/
+    width: 56px; /*幅*/
+    height: 56px; /*高さ*/
+    /* background: #03a9f4; */ /*背景色*/
+    text-align: center; /*中央寄せ*/
+    border-radius: 25%; /*角丸く*/
+    transition: 0.3s; /*滑らかな動きに*/
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24); /*影*/
+    padding-top: 0ex;
+  }
+  
+  .fab:hover {
+    /*ホバー時*/
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+  
+  .fab i {
+    /*中央のアイコン*/
+    color: white;
+    line-height: 56px; /*＝幅と高さ*/
+    font-size: 18px; /*サイズ*/
+    padding-top: 0ex;
+  }
+  
+  .controlArea table {
+    margin-top: 7px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .buttontitle {
+    font-size: 12px;
+    color: #ffffff;
+  }
+  .svgicon {
+    filter: invert(1);
+    width: 20px;
+    /* padding-top: 13px; */
+    vertical-align: bottom;
+  }
+  .bigsvgicon {
+    filter: invert(1);
+    width: 40px;
+    vertical-align: baseline;
+    margin-right: 10px;
+  }
+  
+  div.reactionmargin {
+    margin-left: -10px;
+  }
+  .reactiontitle {
+    position: absolute;
+    bottom: 12px;
+    margin-left: -8px;
+  }
+  
+  .fab-off {
+    background: none;
+  }
+  .fabon {
+    background: linear-gradient(#1e90ff, #40e0d0);
+  }
+  .fab-disable {
+    background: #696969;
+  }
+  .fab-left {
+    border-radius: 25% 0 0 25%;
+    margin-right: 0px !important;
+  }
+  .fab-right {
+    border-radius: 0 25% 25% 0;
+    margin-left: -3px !important;
+  }
+  
+  .bgchangebutton{
+    position: fixed;
+    z-index: 9999;
+    left: 10px;
+    bottom: 80px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.5)
+  }
+  .bgchangebutton:hover {
+    color: rgba(255, 255, 255, 1)
+  }
+  .companycredit{
+  position: fixed;
+  z-index: 9999;
+  left: calc(50vw - 60px);
+  bottom: 70px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  }
+  .companycredit ul{
+    padding-left: 0px;
+    list-style: none;
+  }
+  .badge{
+    position: relative;
+    z-index: 9999;
+    height: 0px;
+    width: 0px;
+    left: 42px;
+    top: 0px;
+  }
+  .badge > div{
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #40e0d0;
+  }
+  /************* オプションエリア ***************/
+  
+  .closebutton {
+    position: absolute;
+    z-index: 300;
+    top: 0px;
+    right: 12px;
+    font-size: 30px;
+  }
+  .menuArea {
+    margin-top: 40px;
+  }
+  .menuArea > div {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .menubutton {
+    width: 48%;
+    margin: 1%;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.7);
+    font-size: 40px;
+    text-align: center;
+    padding: 10px 0px;
+  }
+  .menubutton > p {
+    font-size: 16px;
+    margin: 0px;
+  }
+  /************* ユーザーエリア ***************/
+  .userArea {
+    margin: 20px;
+  }
+  .member h4 {
+    border-bottom: 3px solid #696969;
+    color: #ffffff;
+  }
+  .member ul {
+    list-style: none;
+    padding-left: 0px;
+  }
+  .goodicon {
+    color: #f8b500;
+  }
+  .badicon {
+    color: #38b48b;
+  }
+  .blankicon {
+    color: rgba(0, 0, 0, 0);
+  }
+  .namespace {
+    width: 20px;
+  }
+  
+  @media all and (min-width: 480px) {
+    .voteArea {
+      position: absolute;
+      bottom: 70px;
+    }
+  }
+  @media all and (max-width: 480px) {
+    .voteArea {
+      position: absolute;
+      bottom: 10px;
+      width: calc(100% - 40px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .voteArea > .fab {
+      margin: 0px 5px;
+    }
+  }
+  .voteArea table {
+    margin-top: 7px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .votebutton {
+    width: 31%;
+    margin: 1%;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.7);
+    font-size: 40px;
+    text-align: center;
+    padding: 10px 0px;
+    color: #ffffff;
+  }
+  .votebutton > div > p {
+    font-size: 16px;
+    margin: 0px;
+  }
+  .onstart {
+    position: absolute;
+    left: -10px;
+    bottom: 0px;
+    display: flex;
+  }
+  .onend {
+    position: absolute;
+    right: -10px;
+    bottom: 0px;
+    display: flex;
+  }
+  .onendup {
+    position: absolute;
+    right: 0px;
+    bottom: 60px;
+  }
+  
+  /************* チャットエリア ***************/
+  
+  .chat {
+    border-top: solid 1px #696969;
+    overflow-y: scroll;
+    overflow-wrap: anywhere;
+    padding-top: 5px;
+    width: calc(100% - 46px);
+    margin-left: 23px;
+    height: calc(100vh - 140px);
+  }
+  .chat::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .chat::-webkit-scrollbar-track {
+    border-radius: 5px;
+  }
+  .chat::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #1e90ff;
+  }
+  
+  .chat ul {
+    list-style: none;
+    padding-left: 0px;
+    width: 100%;
+  }
+  
+  @media all and (min-width: 480px) {
+    .chatform input {
+      padding: 10px;
+      font-size: 15px;
+      border: none;
+      border-radius: 5px;
+      margin: 10px;
+      width: 240px;
+    }
+  }
+  @media all and (max-width: 480px) {
+    .chatform input {
+      padding: 10px;
+      font-size: 15px;
+      border: none;
+      border-radius: 5px;
+      margin: 10px;
+      width: calc(100vw - 40px);
+    }
+  }
+  
+  @media all and (min-width: 480px) {
+    .formcontainer {
+      position: absolute;
+      bottom: 70px;
+    }
+  }
+  @media all and (max-width: 480px) {
+    .formcontainer {
+      position: absolute;
+      bottom: 0px;
+    }
+  }
+  
+  .linkinputtext {
+    width: 90%;
+    font-size: 16px;
+    padding: 10px 10px;
+  }
+  
+  @media all and (min-width: 480px) {
+    .controlArea > div {
+      /* display: flex; */
+      margin-left: 15px;
+    }
+  }
+  @media all and (max-width: 480px) {
+    .controlArea > div {
+      /* display: flex; */
+      margin-left: 0px;
+    }
+  }
+  .widemode_left {
+    width: 100%;
+  }
+  .widemode_right {
+    width: 0px;
+  }
+  .widemode_input {
+    display: none;
+  }
+  
+  .widemode {
+    right: 0px;
+    transform: rotateY(180deg);
+  }
+  .widemode_edge {
+    right: 0px;
+  }
+  
+  .swal2-confirm,
+  .swal2-cancel {
+    font-size: 14px !important;
+  }
+  

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>
+    Mojito!
+  </title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/fontawesome-all.min.css" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+</head>
+
+<body class="is-preload">
+  <div class="pageWrapper bg1" id="pageWrapper">
+    <!-- 左側 -->
+    <div class="leftArea">
+      <!--ビデオエリア  -->
+      <div class="videoArea blind4black" id="videoapp">
+        <div id="container">
+          <div class="videowrapper" id="video_container_local_video">
+            <video id="local_video" class="membersvideo" autoplay controls playsinline></video>
+            <p class="membername">
+              Guest
+            </p>
+          </div>
+        </div>
+
+        <div class="bgchangebutton">
+          <span id="bgchangebutton"><i class="fa-solid fa-images"></i></span>
+        </div>
+
+        <div class="companycredit">
+          <ul>
+            <li>Powered by AICE.CLOUD</li>
+            <li>© 2022 AIFORUS,Inc.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- コントロールエリア -->
+      <div class="controlArea">
+
+        <!-- ビデオONOFF -->
+        <div class="fab fab-off" id="videobutton">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/video.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">カメラ</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- マイクONOFF -->
+        <div class="fab fab-off" id="micbutton">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/microphone.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">マイク</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- PC版 -->
+
+        <!-- ミュート -->
+        <div @click="toggleMuteAllVideo" class="fab" v-show="!isMobileMode" v-bind:class="{fabon: isMuteAllVideo}">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/mute.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">ミュート</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- 参加者表示 -->
+        <div class="fab fab-off" @click="togglePCMembarArea" v-show="!isMobileMode"
+          v-bind:class="{fabon: isShowMembarArea}">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/user.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">参加者</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- チャット表示 -->
+        <div class="fab fab-off" @click="togglePCChatArea" v-show="!isMobileMode"
+          v-bind:class="{fabon: isShowChatArea}">
+          <div v-show="isShowBadge" class="badge">
+            <div></div>
+          </div>
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/comments.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">チャット</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- 画面共有開始 -->
+        <div class="fab fab-off" @click="toggleScreenShare" id="__capturebutton" v-show="!isMobileMode"
+          v-bind:class="{fabon: isScreenShare}">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/computer.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">画面共有</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- 画面録画 -->
+        <div class="fab fab-off" @click="toggleRecScreen" v-show="!isMobileMode" v-bind:class="{fabon: isScreenRec}">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/save.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">録画共有</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- 招待 -->
+        <div class="fab fab-off" @click="showLinkWindow" v-show="!isMobileMode">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/invite.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">招待</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- 退室 -->
+        <div class="fab fab-off" @click="leaveRoom" v-show="!isMobileMode">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/door2.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">退室</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+
+
+
+        <!-- モバイル版 -->
+
+        <!-- メニュー -->
+        <div class="fab" @click="toggleMenuArea" v-show="isMobileMode" v-bind:class="{fabon: isShowMenuList}">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/circle.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">メニュー</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- ミュート -->
+        <div class="fab" @click="toggleMuteAllVideo" v-show="isMobileMode" v-bind:class="{fabon: isMuteAllVideo}">
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/mute.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">ミュート</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- チャット -->
+        <div class="fab fab-off" @click="togglePCChatArea" v-show="isMobileMode" v-bind:class="{fabon: isShowChatArea}">
+          <div v-show="isShowBadge" class="badge">
+            <div></div>
+          </div>
+          <table>
+            <tr>
+              <td>
+                <img src="assets/images/comments.svg" class="svgicon">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="buttontitle">チャット</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 右側 -->
+    <div class="rightArea" v-show="isShowMenuArea">
+      <div class="closebutton" @click="toggleMenuArea">×</div>
+
+      <!-- 詳細設定エリア -->
+      <div class="menuArea" v-show="isShowMenuList">
+
+        <div>
+          <ul>
+            <li>音量の設定</li>
+            <li>通知の設定</li>
+            <li>アカウント設定</li>
+            <li>お客様サポートはこちら</li>
+            <li>アイフォーラス株式会社</li>
+            <li><a href="https://aiforus.co.jp" target="_blank">https://aiforus.co.jp
+              </a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ユーザエリア -->
+      <div class="userArea" v-show="isShowMembarArea">
+        <div id="memberapp" class="member">
+          <h4>
+            STATIC_ROOM
+          </h4>
+          <table>
+            <tr>
+              <td colspan="2">参加者：{{ loginmembers.length + 1 }}</td>
+            </tr>
+            <tr>
+              <td class="namespace">
+                <span id="user_raise_myid" class="hidden goodicon"><i class="fas fa-hand-paper"></i></span>
+                <span id="user_good_myid" class="hidden goodicon"><i class="fas fa-thumbs-up"></i></span>
+                <span id="user_bad_myid" class="hidden badicon"><i class="fas fa-thumbs-down"></i></span>
+              </td>
+              <td>
+                Guest
+              </td>
+            </tr>
+            <tr v-for="member in loginmembers">
+              <td>
+                <span v-bind:id="'user_raise_' + member.user_id" class="hidden goodicon"><i
+                    class="fas fa-hand-paper"></i></span>
+                <span v-bind:id="'user_good_' + member.user_id" class="hidden goodicon"><i
+                    class="fas fa-thumbs-up"></i></span>
+                <span v-bind:id="'user_bad_' + member.user_id" class="hidden badicon"><i
+                    class="fas fa-thumbs-down"></i></span>
+              </td>
+              <td>
+                Guest
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="voteArea" v-bind:style="voteStyle">
+
+          <div class="onstart">
+            <div class="fab fab-off" @click="sendVote('raise')" v-bind:class="{fabon: isPushRaise}">
+              <table>
+                <tr>
+                  <td>
+                    <img src="assets/images/raisehand.svg" class="svgicon">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="buttontitle">挙手</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="fab" @click="sendVote('good')" v-bind:class="{fabon: isPushGood}">
+              <table>
+                <tr>
+                  <td>
+                    <img src="assets/images/thumb_u.svg" class="svgicon">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="buttontitle">賛成</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="onend">
+            <div class="fab fab-off" @click="showLinkWindow" v-show="isMobileMode">
+              <table>
+                <tr>
+                  <td>
+                    <img src="assets/images/invite.svg" class="svgicon">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="buttontitle">招待</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="fab fab-off" @click="leaveRoom" v-show="isMobileMode">
+              <table>
+                <tr>
+                  <td>
+                    <img src="assets/images/door2.svg" class="svgicon">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="buttontitle">退室</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- チャットエリア -->
+      <div class="chatArea" v-show="isShowChatArea">
+        <div class="chat" id="chatscrollarea">
+          <ul id="chatapp">
+            <li v-for="item in contents">
+              {{ item.text }}
+            </li>
+          </ul>
+        </div>
+        <div class="formcontainer">
+          <form class="chatform" onsubmit="return sendChat();">
+            <input type="text" id="input_msg" placeholder="Enterで送信" autocomplete="off" max="150" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- リソースなど -->
+  <div class="hidden">
+    <input id="room_id" value="STATIC_ROOM" />
+    <input id="room_name" value="STATIC_ROOM" />
+    <input id="user_name" value="Guest" />
+  </div>
+  <audio id="alert_se" preload>
+    <source src="assets/sound/login.mp3" type="audio/mp3" />
+  </audio>
+  <audio id="mic_switch_on_se" preload>
+    <source src="assets/sound/mic_switch_on.mp3" type="audio/mp3" />
+  </audio>
+  <audio id="mic_switch_off_se" preload>
+    <source src="assets/sound/mic_switch_off.mp3" type="audio/mp3" />
+  </audio>
+  <audio id="vote_se" preload>
+    <source src="assets/sound/vote.mp3" type="audio/wav" />
+  </audio>
+  <audio id="raise_se" preload>
+    <source src="assets/sound/raise.mp3" type="audio/mp3" />
+  </audio>
+  <audio id="yes_se" preload>
+    <source src="assets/sound/yes.mp3" type="audio/mp3" />
+  </audio>
+  <audio id="no_se" preload>
+    <source src="assets/sound/no.mp3" type="audio/mp3" />
+  </audio>
+  <audio id="notice_se" preload>
+    <source src="assets/sound/notice.mp3" type="audio/mp3" />
+  </audio>
+
+  <!-- Scripts -->
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/assets/js/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="/assets/js/script.js"></script>
+</body>
+
+</html>
