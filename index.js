@@ -1,6 +1,3 @@
-// githubのtoken
-// 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
-
 // SSL版・エクスプレスサーバ・ソケットサーバの基本設定
 // SSL準備
 let fs = require("fs");

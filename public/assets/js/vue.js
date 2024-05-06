@@ -273,7 +273,7 @@ const app = Vue.createApp({
           toastr.info("安全に全ての接続を切りました。");
           // $("#alert_se").get(0).play();
           window.setTimeout(function () {
-            window.location.href = "https://kaigishitsu.aice.cloud/home";
+            window.location.href = "https://aice.cloud/OPENUP/";
           }, 6000);
         }
       })
