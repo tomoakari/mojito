@@ -26,7 +26,7 @@ app.use(cors())
 
 
 // テンプレートエンジン
-//app.set("view engine", "ejs");
+app.set("view engine", "ejs");
 
 app.set("views", __dirname + "/views");
 app.set("public", __dirname + "/public");
@@ -53,6 +53,25 @@ app.get("/", async (request, response) => {
     // response.sendFile(__dirname + "room.html");
     response.sendFile(__dirname + "/public/views/room.html");
 });
+
+/**
+ * 会議室ページ
+ */
+app.get("/lobby", async (request, response) => {
+    if(request.query.name == null || request.query.no == null || request.query.unm == null ){
+        return { message: "認証失敗しました"}
+    }
+
+    data = {
+        user_id: request.query.no,
+        user_name: request.query.name,
+        nick_name: request.query.unm,
+        room_name: "lobby",
+    };
+    response.render("./index_renew_invited.ejs", data);
+
+    response.sendFile(__dirname + "/public/views/room.html");
+    });
 
 
 // ファイル置き場

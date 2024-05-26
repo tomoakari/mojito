@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Mojito!</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+  <div class="body">
+    <!-- これは背景を制御するための要素です -->
+  </div>
+  <div>
+    <input type="hidden" id="secret" value="<%- secret %>">
+  </div>
+
+  <div class="darkWindow">
+    <div class="wrapper">
+      <div>
+        <p class="title">クラウドオフィス会議室</p>
+        <p>Powered by <a href="https://aice.cloud" target="_blank">AICE.CLOUD</a></p>
+      </div>
+      <div>
+        <form method="post" action="/" class="entry" onsubmit="return checkParams(this);">
+
+          <div class="login">
+            <input type="hidden" name="room_name" value="<%- room_name %>" />
+
+            <p class="invitedmessage">「<%- room_name %>」へ参加します。</p>
+
+
+            <!-- nameがある場合 -->
+            <p id="nameDisplayArea" class="invisible">
+              参加者：<%- user_name %> さん
+                <input type="hidden" id="user_name" value="<%- user_name %>" />
+            </p>
+
+            <!-- nameがない場合 -->
+            <p id="nameInputArea" class="invisible">
+              <input type="text" id="nameInputText" placeholder="名前" value="" />
+            </p>
+
+            <input type="hidden" name="user_name" value="" />
+            <input type="hidden" name="secret" value="<%- secret %>" />
+            <input type="hidden" name="mode" value="invited" />
+            <button>会議へ参加</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Copyright © 2021
+    <a href="https://aiforus.co.jp/" target="_blank">AIFORUS,Inc.</a>
+  </footer>
+  <script>
+    function checkParams(form) {
+
+      var name = "";
+      // 名前参照の場合
+      if (document.getElementById("user_name").value !== "") {
+        user_name = document.getElementById("user_name").value;
+      } else {
+        user_name = "Guest: " + document.getElementById("nameInputText").value;
+      }
+
+      var room_name = form.elements.room_name;
+      var secret = form.elements.secret;
+      if (secret) {
+        if (user_name.value == "") {
+          alert("名前を入力してください。");
+          return false;
+        } else if (room_name.value == "") {
+          alert("作成したい会議室名を入力してください。");
+          return false;
+        } else {
+          document.getElementsByName("user_name")[0].value = user_name;
+          return true;
+        }
+      }
+      return false
+    }
+
+    window.onload = function () {
+      // secretがない場合は飛ばす
+      if (document.getElementById("secret").value == "") {
+        window.location.href = 'https://aice.cloud/cloudoffice/';
+      }
+
+      // user_nameの有無で表示を切り分ける
+      if (document.getElementById("user_name").value == "") {
+        document.getElementById("nameInputArea").classList.remove("invisible");
+      } else {
+        document.getElementById("nameDisplayArea").classList.remove("invisible");
+      }
+    }
+  </script>
+</body>
+
+</html>
