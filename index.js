@@ -69,8 +69,6 @@ app.get("/lobby", async (request, response) => {
         room_name: "lobby",
     };
     response.render("./index_renew_invited.ejs", data);
-
-    response.sendFile(__dirname + "/public/views/room.html");
     });
 
 
