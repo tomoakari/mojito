@@ -68,7 +68,7 @@ app.get("/lobby", async (request, response) => {
         nick_name: request.query.unm,
         room_name: "lobby",
     };
-    response.render("./index_renew_invited.ejs", data);
+    response.render(__dirname + "/public/views/index_renew_invited.ejs", data);
     });
 
 
